@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Plan</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Personalized Study Plan</h1>
+        <div class="student-info">
+            <h2>Student Information</h2>
+            <ul>
+                <li><strong>Name:</strong> {{ plan.student_info.name }}</li>
+                <li><strong>Reg No:</strong> {{ plan.student_info.reg_no }}</li>
+                <li><strong>Gender:</strong> {{ plan.student_info.gender }}</li>
+                <li><strong>Performance Group:</strong> {{ plan.student_info.cluster_group }}</li>
+                <li><strong>Average Score:</strong> {{ plan.student_info.average_score }}</li>
+            </ul>
+        </div>
+
+        <div class="subject-section">
+            <h2>📚 Subject-wise Analysis</h2>
+            {% for subject, details in plan.subject_analysis.items() %}
+                <div class="subject-block">
+                    <h3>{{ subject }} ({{ details.level }}) - Score: {{ details.score }}</h3>
+                    <ul>
+                        {% for tip in details.tips %}
+                            <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="recommendations">
+            <h2>📝 General Recommendations</h2>
+            <ul>
+                {% for tip in plan.recommendations['General'] %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

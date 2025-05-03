@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Personalized Study Plan</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+                padding: 30px;
+                background-color: #f0f4f8;
+            }
+            h2 {
+                text-align: center;
+                color: #2c3e50;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .info, .plan, .cluster, .score-comparison {
+                background: #fff;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+            .info p, .plan ul {
+                font-size: 16px;
+                color: #34495e;
+            }
+            .info p {
+                margin: 10px 0;
+            }
+            .plan h3, .cluster h3 {
+                color: #2c3e50;
+            }
+            .plan ul {
+                padding-left: 20px;
+            }
+            .plan li {
+                margin: 5px 0;
+            }
+            table {
+                width: 100%;
+                margin-top: 10px;
+                border-collapse: collapse;
+            }
+            td, th {
+                padding: 8px;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #3498db;
+                color: white;
+            }
+            .score-comparison canvas {
+                margin-top: 20px;
+                width: 100%;
+                height: 300px;
+            }
+            .cluster-card {
+                background-color: #ecf0f1;
+                border-radius: 8px;
+                padding: 15px;
+                margin: 15px 0;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            }
+            .cluster-card p {
+                font-size: 18px;
+                font-weight: bold;
+                color: #2980b9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Personalized Study Plan for {{ student_name }}</h2>
+    
+            <div class="info">
+                <p><strong>Registration Number:</strong> {{ registration_number }}</p>
+                <p><strong>Average Score:</strong> {{ average_score }}</p>
+                <p><strong>Strongest Subject:</strong> {{ strongest_subject }}</p>
+                <p><strong>Weakest Subject:</strong> {{ weakest_subject }}</p>
+            </div>
+    
+            <div class="plan">
+                <h3>Suggested Plan:</h3>
+                <ul>
+                    {% for subject, tip in suggested_plan.items() %}
+                        <li><strong>{{ subject }}:</strong> {{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    
+            <div class="cluster">
+                <h3>Cluster Average Scores:</h3>
+                <table>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Average Score</th>
+                    </tr>
+                    {% for subject, avg in cluster_average.items() %}
+                        <tr>
+                            <td>{{ subject }}</td>
+                            <td>{{ avg | round(2) }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+    
+            <div class="cluster-card">
+                <p>Performance Cluster: <strong>{{ cluster_label }}</strong></p>
+            </div>
+    
+            <!-- Displaying student's individual marks -->
+            <div class="marks">
+                <h3>Subject Scores:</h3>
+                <table>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Score</th>
+                    </tr>
+                    {% for subject, score in student_marks.items() %}
+                        <tr>
+                            <td>{{ subject }}</td>
+                            <td>{{ score }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </body>
+    </html>
+    
